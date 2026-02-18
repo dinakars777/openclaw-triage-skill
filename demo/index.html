@@ -694,6 +694,12 @@
       <div class="cmd-tab" onclick="showPanel('duplicates')" id="tab-duplicates">
         <span class="icon">🔍</span> Detect Duplicates
       </div>
+      <div class="cmd-tab" onclick="showPanel('ci-blockers')" id="tab-ci-blockers">
+        <span class="icon">🚧</span> CI Blockers
+      </div>
+      <div class="cmd-tab" onclick="showPanel('contributor')" id="tab-contributor">
+        <span class="icon">👤</span> Contributor
+      </div>
     </div>
 
     <!-- ═══ Panel 1: Single PR ═══ -->
@@ -1255,6 +1261,218 @@
         <div style="margin-top:14px;">
           <div class="action-badge close" style="font-size:0.78rem;">⚠️ Recommendation: Review PR #14901 for plagiarism
             — compare diffs with `gh pr diff`</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ Panel 6: CI Blockers ═══ -->
+    <div class="demo-panel" id="panel-ci-blockers">
+      <div class="terminal">
+        <div class="terminal-bar">
+          <div class="terminal-dot red"></div>
+          <div class="terminal-dot yellow"></div>
+          <div class="terminal-dot green"></div>
+          <div class="terminal-title">openclaw — CI blocker analysis</div>
+        </div>
+        <div class="terminal-body">
+          <span class="prompt">❯</span> <span class="cmd">openclaw ci-blockers --repo openclaw/openclaw --limit
+            50</span><br><br>
+          <span class="dim">Scanning 50 open PRs for CI failures...</span><br>
+          <span class="dim">Grouping by check name...</span><br>
+          <span class="dim">Calculating blast radius...</span><br><br>
+          <span class="error">⚠ Found 3 failure groups blocking 28 PRs total</span><br><br>
+          <span class="success">✓ Analysis complete</span>
+        </div>
+      </div>
+
+      <div class="stats-bar">
+        <div class="stat">
+          <div class="number">50</div>
+          <div class="label">PRs Scanned</div>
+        </div>
+        <div class="stat">
+          <div class="number" style="-webkit-text-fill-color:var(--accent-red)">28</div>
+          <div class="label">CI Failing</div>
+        </div>
+        <div class="stat">
+          <div class="number" style="-webkit-text-fill-color:var(--accent-orange)">3</div>
+          <div class="label">Failure Groups</div>
+        </div>
+        <div class="stat">
+          <div class="number" style="-webkit-text-fill-color:var(--accent-green)">2</div>
+          <div class="label">Fix PRs Found</div>
+        </div>
+      </div>
+
+      <div class="section-label">Failure Groups — Ranked by Blast Radius</div>
+
+      <!-- Critical group -->
+      <div class="triage-card" style="border-color: rgba(239,68,68,0.4);">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+          <h3>🔴 CRITICAL — CI/checks (pull_request)</h3>
+          <span class="tag critical" style="font-size:0.8rem;">Blocks 18 PRs</span>
+        </div>
+        <div class="triage-summary" style="border-left-color:var(--accent-red);">
+          The <code>CI/checks</code> workflow is failing on 18 open PRs due to a flaky integration test in
+          <code>test_session_manager.ts</code>. This is the single highest-leverage fix available — resolving it
+          unblocks 36% of all failing PRs.
+        </div>
+        <div style="margin-top:12px;font-size:0.82rem;color:var(--text-secondary);">
+          <div style="margin-bottom:4px;">Affected PRs: #15518, #15515, #14358, #14348, #14243, #14175, #14112, #14089
+            <span style="color:var(--text-muted)">+10 more</span></div>
+        </div>
+      </div>
+
+      <!-- High group -->
+      <div class="triage-card" style="border-color: rgba(249,115,22,0.3);">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+          <h3>🟡 HIGH — Labeler/label-issues (pull_request)</h3>
+          <span class="tag high" style="font-size:0.8rem;">Blocks 7 PRs</span>
+        </div>
+        <div class="triage-summary" style="border-left-color:var(--accent-orange);">
+          The labeler workflow is timing out due to API rate limits when processing PRs with large diffs. Affects all
+          PRs with 10+ changed files.
+        </div>
+      </div>
+
+      <!-- Medium group -->
+      <div class="triage-card" style="border-color: rgba(245,158,11,0.2);">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+          <h3>🟢 MEDIUM — CI/checks-windows (pull_request)</h3>
+          <span class="tag medium" style="font-size:0.8rem;">Blocks 3 PRs</span>
+        </div>
+        <div class="triage-summary" style="border-left-color:var(--accent-yellow);">
+          Windows-specific path separator issue in new test fixtures. Only affects PRs that add tests with file path
+          assertions.
+        </div>
+      </div>
+
+      <div class="section-label">⭐ CI Fix PRs — Priority Merge Candidates</div>
+
+      <div class="triage-card" style="border-color: rgba(16,185,129,0.4);">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span style="font-size:1.3rem;">⭐</span>
+          <div style="flex:1;">
+            <h3><span class="pr-number">#14175</span> fix(infra): satisfy lint in ports-inspect</h3>
+            <div class="url">by @rmdmattingly · May fix lint/format failures</div>
+          </div>
+          <div class="action-badge" style="font-size:0.75rem;">MERGE TO UNBLOCK</div>
+        </div>
+        <div class="triage-summary" style="margin-top:12px;border-left-color:var(--accent-green);">
+          💡 This PR fixes a lint issue in the CI pipeline. If merged, it may unblock multiple PRs currently failing on
+          the same check.
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ Panel 7: Contributor Profile ═══ -->
+    <div class="demo-panel" id="panel-contributor">
+      <div class="terminal">
+        <div class="terminal-bar">
+          <div class="terminal-dot red"></div>
+          <div class="terminal-dot yellow"></div>
+          <div class="terminal-dot green"></div>
+          <div class="terminal-title">openclaw — contributor profile #15518</div>
+        </div>
+        <div class="terminal-body">
+          <span class="prompt">❯</span> <span class="cmd">openclaw contributor-profile #15518 --repo
+            openclaw/openclaw</span><br><br>
+          <span class="dim">Fetching PR #15518 author...</span><br>
+          <span class="dim">Author: @TsekaLuk</span><br>
+          <span class="dim">Loading contribution history...</span><br><br>
+          <span class="success">✓ Profile loaded</span>
+        </div>
+      </div>
+
+      <div class="section-label">PR Under Review</div>
+      <div class="triage-card">
+        <h3><span class="pr-number">#15518</span> tui: recover local no-output runs via history fallback</h3>
+        <div class="url">github.com/openclaw/openclaw/pull/15518 · by @TsekaLuk</div>
+      </div>
+
+      <div class="section-label">Contributor Tier</div>
+      <div class="triage-card" style="border-color: rgba(59,130,246,0.3);">
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;">
+          <div
+            style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--accent-blue),var(--accent-purple));display:flex;align-items:center;justify-content:center;font-size:1.5rem;">
+            ⭐</div>
+          <div>
+            <h3 style="margin-bottom:2px;">⭐ Trusted Contributor</h3>
+            <div style="font-size:0.84rem;color:var(--text-secondary);">High merge rate, many contributions — fast-track
+              review recommended</div>
+          </div>
+        </div>
+
+        <div class="triage-grid" style="grid-template-columns: repeat(4, 1fr);">
+          <div class="triage-field">
+            <div class="label">Total PRs</div>
+            <div class="value">24</div>
+          </div>
+          <div class="triage-field">
+            <div class="label">Merged</div>
+            <div class="value" style="color:var(--accent-green)">21 ✅</div>
+          </div>
+          <div class="triage-field">
+            <div class="label">Merge Rate</div>
+            <div class="value" style="color:var(--accent-green)">87%</div>
+          </div>
+          <div class="triage-field">
+            <div class="label">Open Now</div>
+            <div class="value">2 🔄</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-label">Recent Merged PRs</div>
+      <div class="triage-card" style="padding:0;overflow:hidden;">
+        <table class="batch-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Title</th>
+              <th>Merged</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="animate-row" style="animation-delay:0.05s">
+              <td class="mono">#15200</td>
+              <td>tui: fix cursor jump on paste in multiline input</td>
+              <td style="color:var(--text-muted)">Feb 10</td>
+            </tr>
+            <tr class="animate-row" style="animation-delay:0.1s">
+              <td class="mono">#14890</td>
+              <td>tui: add Ctrl+L clear shortcut for terminal panel</td>
+              <td style="color:var(--text-muted)">Feb 6</td>
+            </tr>
+            <tr class="animate-row" style="animation-delay:0.15s">
+              <td class="mono">#14502</td>
+              <td>fix: handle empty streaming responses gracefully</td>
+              <td style="color:var(--text-muted)">Jan 29</td>
+            </tr>
+            <tr class="animate-row" style="animation-delay:0.2s">
+              <td class="mono">#13980</td>
+              <td>tui: truncate long file paths in diff viewer</td>
+              <td style="color:var(--text-muted)">Jan 20</td>
+            </tr>
+            <tr class="animate-row" style="animation-delay:0.25s">
+              <td class="mono">#13512</td>
+              <td>fix: prevent double-render on theme toggle</td>
+              <td style="color:var(--text-muted)">Jan 11</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-label">Review Recommendation</div>
+      <div class="triage-card">
+        <div
+          style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:8px;padding:14px 16px;font-size:0.84rem;">
+          <div style="color:var(--accent-green);font-weight:600;margin-bottom:8px;">⭐ TRUSTED CONTRIBUTOR — Fast-track
+          </div>
+          <div style="color:var(--text-secondary);margin-bottom:4px;">• High historical merge rate (87%)</div>
+          <div style="color:var(--text-secondary);margin-bottom:4px;">• 21 previous PRs successfully merged</div>
+          <div style="color:var(--text-secondary);margin-bottom:4px;">• Specializes in TUI and streaming fixes</div>
+          <div style="color:var(--text-secondary);">• Can be reviewed with lighter scrutiny</div>
         </div>
       </div>
     </div>

@@ -27,6 +27,8 @@ A complete, ready-to-use OpenClaw skill for triaging PRs and issues at scale. It
 | **Batch Mode** | Processes up to 200 PRs/issues at once with filtering by state, recency, and labels — designed for the 3.6k+ backlog |
 | **PR Dashboard** | Generates an action-prioritized overview: 🔴 Immediate, 🟡 Needs Review, 🟢 Ready to Merge, ⚪ Stale, 🔵 Deps |
 | **🔍 Duplicate & Plagiarism Detection** | Compares PRs by file overlap, submission timing, authorship, title similarity, and branch names to flag copied or duplicate work |
+| **🚧 CI Blocker Analysis** | Groups CI failures by check name and ranks by "blast radius" — how many PRs each fix unblocks. Identifies CI-fix PRs as priority merges |
+| **👤 Contributor Insights** | First-time contributor detection, merge rate history, contribution tier, bot detection, and adaptive review recommendations |
 
 ### Architecture
 
@@ -37,7 +39,9 @@ openclaw-triage-skill/
 │   ├── triage-pr.sh              # Fetches PR metadata via gh CLI
 │   ├── triage-issue.sh           # Fetches issue metadata + duplicate detection
 │   ├── batch-triage.sh           # Bulk fetching with filters
-│   └── detect-duplicates.sh      # 🔍 Duplicate/plagiarism detection across PRs
+│   ├── detect-duplicates.sh      # 🔍 Duplicate/plagiarism detection across PRs
+│   ├── ci-blockers.sh            # 🚧 CI failure grouping & blast radius analysis
+│   └── contributor-profile.sh    # 👤 Author history, merge rate, tier classification
 └── templates/
     └── triage-report.md          # Structured output template
 ```
@@ -77,7 +81,9 @@ Here's my concrete plan for tackling the backlog if I join the team:
 - **Label the unlabeled**: Run triage on all unlabeled PRs to auto-suggest labels
 
 ### Phase 2: Active Triage (Weeks 2-4)
+- **🚧 Unblock CI bottlenecks**: Identify which CI failures block the most PRs and prioritize fixing them — a single lint fix can unblock 20+ PRs
 - **Daily triage of new PRs**: Set up a recurring job that triages all PRs opened in the last 24 hours and posts summaries to the team channel
+- **👤 Contributor-aware reviews**: Use contributor profiles to fast-track trusted contributors and provide onboarding guidance for first-timers
 - **Priority queue**: Generate weekly "action needed" dashboards sorted by risk and impact
 - **Reviewer routing**: Use git blame + CODEOWNERS to suggest the right reviewer for each PR area
 

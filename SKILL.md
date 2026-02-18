@@ -166,6 +166,50 @@ This command compares the target PR against all open PRs and flags:
 ```
 
 
+---
+
+### 6. CI Blocker Analysis
+
+When the user asks about CI failures blocking PRs (e.g., "what CI issues are blocking the most PRs?", "find force-multiplier fixes"), run:
+
+```bash
+bash scripts/ci-blockers.sh [--repo owner/name] [--limit 50]
+```
+
+This groups CI failures across all open PRs by check name and ranks by **blast radius** — how many PRs each failure blocks:
+
+| Priority | Criteria | Action |
+|----------|----------|--------|
+| **🔴 CRITICAL** | Same check failing on 10+ PRs | Fix immediately — highest leverage work |
+| **🟡 HIGH** | Same check failing on 5-9 PRs | Prioritize — significant unblocking potential |
+| **🟢 MEDIUM** | Same check failing on 2-4 PRs | Schedule fix |
+| **⚪ LOW** | Unique failure on 1 PR | PR-specific issue |
+
+The script also identifies **CI-fix PRs** — open PRs whose title/branch suggests they fix CI, build, or lint issues — and recommends them as priority merges.
+
+---
+
+### 7. Contributor Profile
+
+When reviewing a PR and wanting to understand the author's context (e.g., "who is this contributor?", "is this a first-time PR?"), run:
+
+```bash
+bash scripts/contributor-profile.sh <PR_NUMBER> [--repo owner/name]
+```
+
+Shows:
+
+| Field | Description |
+|-------|-------------|
+| **Contributor Tier** | 🆕 First-time, 🌱 New, ✅ Regular, ⭐ Trusted, ⚠️ Low merge rate |
+| **Merge Rate** | % of submitted PRs that were merged |
+| **Open PRs** | Other open PRs by the same author (review together) |
+| **History** | Last 5 merged PRs for context |
+| **Bot Detection** | Flags automated accounts (Dependabot, Renovate, etc.) |
+
+Review recommendations adapt based on tier — first-timers get mentoring guidance, trusted contributors get fast-tracked.
+
+
 
 ### Type Detection
 - **bug-fix**: Title/body contains "fix", "bug", "crash", "error", "regression"; touches test files alongside source
