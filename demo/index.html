@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>OpenClaw Triage Skill — Live Demo</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
   <style>
     :root {
       --bg-primary: #0a0e1a;
@@ -25,13 +28,17 @@
       --accent-red: #ef4444;
       --accent-orange: #f97316;
       --gradient-hero: linear-gradient(135deg, #1e3a5f 0%, #0a0e1a 50%, #1a0a2e 100%);
-      --gradient-card: linear-gradient(145deg, rgba(59,130,246,0.05) 0%, rgba(139,92,246,0.05) 100%);
-      --shadow-glow: 0 0 30px rgba(59,130,246,0.15);
+      --gradient-card: linear-gradient(145deg, rgba(59, 130, 246, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%);
+      --shadow-glow: 0 0 30px rgba(59, 130, 246, 0.15);
       --font-sans: 'Inter', -apple-system, sans-serif;
       --font-mono: 'JetBrains Mono', 'Cascadia Code', monospace;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
     body {
       font-family: var(--font-sans);
@@ -50,6 +57,7 @@
       position: relative;
       overflow: hidden;
     }
+
     .header::before {
       content: '';
       position: absolute;
@@ -57,21 +65,34 @@
       left: -50%;
       width: 200%;
       height: 200%;
-      background: radial-gradient(circle at 30% 50%, rgba(59,130,246,0.08) 0%, transparent 50%),
-                  radial-gradient(circle at 70% 50%, rgba(139,92,246,0.06) 0%, transparent 50%);
+      background: radial-gradient(circle at 30% 50%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 70% 50%, rgba(139, 92, 246, 0.06) 0%, transparent 50%);
       animation: aurora 15s ease-in-out infinite;
     }
+
     @keyframes aurora {
-      0%, 100% { transform: translate(0, 0); }
-      50% { transform: translate(-2%, 1%); }
+
+      0%,
+      100% {
+        transform: translate(0, 0);
+      }
+
+      50% {
+        transform: translate(-2%, 1%);
+      }
     }
-    .header-content { position: relative; z-index: 1; }
+
+    .header-content {
+      position: relative;
+      z-index: 1;
+    }
+
     .header .badge {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: rgba(59,130,246,0.15);
-      border: 1px solid rgba(59,130,246,0.3);
+      background: rgba(59, 130, 246, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.3);
       border-radius: 20px;
       padding: 5px 14px;
       font-size: 0.75rem;
@@ -81,6 +102,7 @@
       text-transform: uppercase;
       margin-bottom: 1rem;
     }
+
     .header h1 {
       font-size: 2.4rem;
       font-weight: 800;
@@ -90,6 +112,7 @@
       background-clip: text;
       margin-bottom: 0.5rem;
     }
+
     .header p {
       color: var(--text-secondary);
       font-size: 1.05rem;
@@ -99,7 +122,11 @@
     }
 
     /* ══════ Layout ══════ */
-    .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
 
     /* ══════ Command Tabs ══════ */
     .command-bar {
@@ -108,6 +135,7 @@
       margin-bottom: 2rem;
       flex-wrap: wrap;
     }
+
     .cmd-tab {
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -122,23 +150,45 @@
       align-items: center;
       gap: 8px;
     }
+
     .cmd-tab:hover {
       border-color: var(--accent-blue);
       color: var(--text-primary);
       background: var(--bg-card-hover);
     }
+
     .cmd-tab.active {
       border-color: var(--accent-blue);
-      background: rgba(59,130,246,0.1);
+      background: rgba(59, 130, 246, 0.1);
       color: var(--accent-blue);
       box-shadow: var(--shadow-glow);
     }
-    .cmd-tab .icon { font-size: 1.1rem; }
+
+    .cmd-tab .icon {
+      font-size: 1.1rem;
+    }
 
     /* ══════ Demo Panels ══════ */
-    .demo-panel { display: none; animation: fadeIn 0.4s ease; }
-    .demo-panel.active { display: block; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .demo-panel {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .demo-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
     /* ══════ Terminal ══════ */
     .terminal {
@@ -147,21 +197,43 @@
       border-radius: 12px;
       overflow: hidden;
       margin-bottom: 2rem;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     }
+
     .terminal-bar {
       display: flex;
       align-items: center;
       gap: 8px;
       padding: 12px 16px;
-      background: rgba(255,255,255,0.03);
+      background: rgba(255, 255, 255, 0.03);
       border-bottom: 1px solid var(--border);
     }
-    .terminal-dot { width: 12px; height: 12px; border-radius: 50%; }
-    .terminal-dot.red { background: #ff5f57; }
-    .terminal-dot.yellow { background: #febc2e; }
-    .terminal-dot.green { background: #28c840; }
-    .terminal-title { margin-left: 12px; font-size: 0.78rem; color: var(--text-muted); font-family: var(--font-mono); }
+
+    .terminal-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .terminal-dot.red {
+      background: #ff5f57;
+    }
+
+    .terminal-dot.yellow {
+      background: #febc2e;
+    }
+
+    .terminal-dot.green {
+      background: #28c840;
+    }
+
+    .terminal-title {
+      margin-left: 12px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+
     .terminal-body {
       padding: 20px;
       font-family: var(--font-mono);
@@ -169,13 +241,34 @@
       line-height: 1.7;
       overflow-x: auto;
     }
-    .terminal-body .prompt { color: var(--accent-green); }
-    .terminal-body .cmd { color: var(--accent-cyan); }
-    .terminal-body .output { color: var(--text-secondary); }
-    .terminal-body .highlight { color: var(--accent-yellow); }
-    .terminal-body .error { color: var(--accent-red); }
-    .terminal-body .success { color: var(--accent-green); }
-    .terminal-body .dim { color: var(--text-muted); }
+
+    .terminal-body .prompt {
+      color: var(--accent-green);
+    }
+
+    .terminal-body .cmd {
+      color: var(--accent-cyan);
+    }
+
+    .terminal-body .output {
+      color: var(--text-secondary);
+    }
+
+    .terminal-body .highlight {
+      color: var(--accent-yellow);
+    }
+
+    .terminal-body .error {
+      color: var(--accent-red);
+    }
+
+    .terminal-body .success {
+      color: var(--accent-green);
+    }
+
+    .terminal-body .dim {
+      color: var(--text-muted);
+    }
 
     /* ══════ Triage Card ══════ */
     .triage-card {
@@ -187,10 +280,12 @@
       margin-bottom: 1.5rem;
       transition: all 0.25s ease;
     }
+
     .triage-card:hover {
-      border-color: rgba(59,130,246,0.3);
+      border-color: rgba(59, 130, 246, 0.3);
       box-shadow: var(--shadow-glow);
     }
+
     .triage-card h3 {
       font-size: 1.1rem;
       font-weight: 700;
@@ -199,12 +294,18 @@
       align-items: center;
       gap: 10px;
     }
+
     .triage-card .pr-number {
       color: var(--text-muted);
       font-family: var(--font-mono);
       font-size: 0.9rem;
     }
-    .triage-card .url { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 16px; }
+
+    .triage-card .url {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
 
     .tag {
       display: inline-flex;
@@ -216,16 +317,66 @@
       font-weight: 600;
       letter-spacing: 0.03em;
     }
-    .tag.bug { background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.25); }
-    .tag.feature { background: rgba(59,130,246,0.15); color: #60a5fa; border: 1px solid rgba(59,130,246,0.25); }
-    .tag.refactor { background: rgba(139,92,246,0.15); color: #a78bfa; border: 1px solid rgba(139,92,246,0.25); }
-    .tag.deps { background: rgba(249,115,22,0.15); color: #fb923c; border: 1px solid rgba(249,115,22,0.25); }
-    .tag.docs { background: rgba(6,182,212,0.15); color: #22d3ee; border: 1px solid rgba(6,182,212,0.25); }
-    .tag.critical { background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
-    .tag.high { background: rgba(249,115,22,0.15); color: #fb923c; border: 1px solid rgba(249,115,22,0.25); }
-    .tag.medium { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.25); }
-    .tag.low { background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.25); }
-    .tag.trivial { background: rgba(100,116,139,0.15); color: #94a3b8; border: 1px solid rgba(100,116,139,0.25); }
+
+    .tag.bug {
+      background: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.25);
+    }
+
+    .tag.feature {
+      background: rgba(59, 130, 246, 0.15);
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.25);
+    }
+
+    .tag.refactor {
+      background: rgba(139, 92, 246, 0.15);
+      color: #a78bfa;
+      border: 1px solid rgba(139, 92, 246, 0.25);
+    }
+
+    .tag.deps {
+      background: rgba(249, 115, 22, 0.15);
+      color: #fb923c;
+      border: 1px solid rgba(249, 115, 22, 0.25);
+    }
+
+    .tag.docs {
+      background: rgba(6, 182, 212, 0.15);
+      color: #22d3ee;
+      border: 1px solid rgba(6, 182, 212, 0.25);
+    }
+
+    .tag.critical {
+      background: rgba(239, 68, 68, 0.15);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    .tag.high {
+      background: rgba(249, 115, 22, 0.15);
+      color: #fb923c;
+      border: 1px solid rgba(249, 115, 22, 0.25);
+    }
+
+    .tag.medium {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.25);
+    }
+
+    .tag.low {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.25);
+    }
+
+    .tag.trivial {
+      background: rgba(100, 116, 139, 0.15);
+      color: #94a3b8;
+      border: 1px solid rgba(100, 116, 139, 0.25);
+    }
 
     .triage-grid {
       display: grid;
@@ -233,11 +384,13 @@
       gap: 12px;
       margin: 16px 0;
     }
+
     .triage-field {
-      background: rgba(0,0,0,0.2);
+      background: rgba(0, 0, 0, 0.2);
       border-radius: 8px;
       padding: 12px;
     }
+
     .triage-field .label {
       font-size: 0.68rem;
       color: var(--text-muted);
@@ -245,12 +398,14 @@
       letter-spacing: 0.08em;
       margin-bottom: 4px;
     }
+
     .triage-field .value {
       font-size: 0.88rem;
       font-weight: 600;
     }
+
     .triage-summary {
-      background: rgba(0,0,0,0.15);
+      background: rgba(0, 0, 0, 0.15);
       border-radius: 8px;
       padding: 14px 16px;
       margin: 16px 0;
@@ -259,12 +414,13 @@
       color: var(--text-secondary);
       border-left: 3px solid var(--accent-blue);
     }
+
     .action-badge {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: rgba(16,185,129,0.12);
-      border: 1px solid rgba(16,185,129,0.3);
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
       border-radius: 8px;
       padding: 8px 16px;
       font-size: 0.82rem;
@@ -273,8 +429,18 @@
       text-transform: uppercase;
       letter-spacing: 0.04em;
     }
-    .action-badge.review { background: rgba(245,158,11,0.12); border-color: rgba(245,158,11,0.3); color: var(--accent-yellow); }
-    .action-badge.close { background: rgba(239,68,68,0.12); border-color: rgba(239,68,68,0.3); color: var(--accent-red); }
+
+    .action-badge.review {
+      background: rgba(245, 158, 11, 0.12);
+      border-color: rgba(245, 158, 11, 0.3);
+      color: var(--accent-yellow);
+    }
+
+    .action-badge.close {
+      background: rgba(239, 68, 68, 0.12);
+      border-color: rgba(239, 68, 68, 0.3);
+      color: var(--accent-red);
+    }
 
     /* ══════ Dashboard ══════ */
     .dashboard-grid {
@@ -283,12 +449,14 @@
       gap: 16px;
       margin-top: 1.5rem;
     }
+
     .bucket {
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: 12px;
       overflow: hidden;
     }
+
     .bucket-header {
       padding: 14px 18px;
       font-weight: 700;
@@ -298,27 +466,45 @@
       gap: 8px;
       border-bottom: 1px solid var(--border);
     }
+
     .bucket-header .count {
       margin-left: auto;
-      background: rgba(255,255,255,0.08);
+      background: rgba(255, 255, 255, 0.08);
       border-radius: 10px;
       padding: 2px 10px;
       font-size: 0.75rem;
       font-weight: 600;
     }
+
     .bucket-item {
       padding: 10px 18px;
-      border-bottom: 1px solid rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
       font-size: 0.82rem;
       display: flex;
       align-items: center;
       gap: 10px;
       transition: background 0.2s;
     }
-    .bucket-item:hover { background: rgba(255,255,255,0.02); }
-    .bucket-item:last-child { border-bottom: none; }
-    .bucket-item .num { color: var(--text-muted); font-family: var(--font-mono); font-size: 0.78rem; min-width: 50px; }
-    .bucket-item .title { flex: 1; color: var(--text-secondary); }
+
+    .bucket-item:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .bucket-item:last-child {
+      border-bottom: none;
+    }
+
+    .bucket-item .num {
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      min-width: 50px;
+    }
+
+    .bucket-item .title {
+      flex: 1;
+      color: var(--text-secondary);
+    }
 
     /* ══════ Stats Bar ══════ */
     .stats-bar {
@@ -327,6 +513,7 @@
       gap: 12px;
       margin-bottom: 1.5rem;
     }
+
     .stat {
       background: var(--bg-card);
       border: 1px solid var(--border);
@@ -334,6 +521,7 @@
       padding: 16px;
       text-align: center;
     }
+
     .stat .number {
       font-size: 1.8rem;
       font-weight: 800;
@@ -342,7 +530,14 @@
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
-    .stat .label { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 4px; }
+
+    .stat .label {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 4px;
+    }
 
     /* ══════ Batch Table ══════ */
     .batch-table {
@@ -350,6 +545,7 @@
       border-collapse: collapse;
       font-size: 0.82rem;
     }
+
     .batch-table th {
       text-align: left;
       padding: 10px 14px;
@@ -358,19 +554,40 @@
       letter-spacing: 0.08em;
       color: var(--text-muted);
       border-bottom: 1px solid var(--border);
-      background: rgba(0,0,0,0.2);
+      background: rgba(0, 0, 0, 0.2);
     }
+
     .batch-table td {
       padding: 10px 14px;
-      border-bottom: 1px solid rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
       color: var(--text-secondary);
     }
-    .batch-table tr:hover td { background: rgba(255,255,255,0.02); }
-    .batch-table .mono { font-family: var(--font-mono); font-size: 0.78rem; }
+
+    .batch-table tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .batch-table .mono {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+    }
 
     /* ══════ Animate-in ══════ */
-    .animate-row { animation: slideIn 0.3s ease both; }
-    @keyframes slideIn { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: translateX(0); } }
+    .animate-row {
+      animation: slideIn 0.3s ease both;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(-8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
 
     /* ══════ Run Button ══════ */
     .run-btn {
@@ -388,9 +605,20 @@
       align-items: center;
       gap: 8px;
     }
-    .run-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(59,130,246,0.35); }
-    .run-btn:active { transform: translateY(0); }
-    .run-btn.running { opacity: 0.7; pointer-events: none; }
+
+    .run-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(59, 130, 246, 0.35);
+    }
+
+    .run-btn:active {
+      transform: translateY(0);
+    }
+
+    .run-btn.running {
+      opacity: 0.7;
+      pointer-events: none;
+    }
 
     .section-label {
       font-size: 0.72rem;
@@ -402,6 +630,7 @@
       align-items: center;
       gap: 8px;
     }
+
     .section-label::after {
       content: '';
       flex: 1;
@@ -415,7 +644,12 @@
       animation: blink 1s step-end infinite;
       color: var(--accent-green);
     }
-    @keyframes blink { 50% { opacity: 0; } }
+
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    }
 
     .footer {
       text-align: center;
@@ -427,6 +661,7 @@
     }
   </style>
 </head>
+
 <body>
 
   <!-- Header -->
@@ -434,7 +669,8 @@
     <div class="header-content">
       <div class="badge">🤖 OpenClaw Skill</div>
       <h1>PR & Issue Triage</h1>
-      <p>Automated classification, prioritization, and action recommendations for repositories with thousands of open PRs</p>
+      <p>Automated classification, prioritization, and action recommendations for repositories with thousands of open
+        PRs</p>
     </div>
   </div>
 
@@ -455,6 +691,9 @@
       <div class="cmd-tab" onclick="showPanel('dashboard')" id="tab-dashboard">
         <span class="icon">📋</span> Dashboard
       </div>
+      <div class="cmd-tab" onclick="showPanel('duplicates')" id="tab-duplicates">
+        <span class="icon">🔍</span> Detect Duplicates
+      </div>
     </div>
 
     <!-- ═══ Panel 1: Single PR ═══ -->
@@ -467,7 +706,8 @@
           <div class="terminal-title">openclaw — triage PR #3421</div>
         </div>
         <div class="terminal-body" id="terminal-pr">
-          <span class="prompt">❯</span> <span class="cmd">openclaw triage PR #3421 --repo openclaw/openclaw</span><br><br>
+          <span class="prompt">❯</span> <span class="cmd">openclaw triage PR #3421 --repo
+            openclaw/openclaw</span><br><br>
           <span class="dim">Fetching PR metadata...</span><br>
           <span class="dim">Analyzing diff... 23 files changed (+847 / -312)</span><br>
           <span class="dim">Checking CI status...</span><br>
@@ -523,7 +763,9 @@
         </div>
 
         <div class="triage-summary">
-          Refactors the authentication middleware to add support for OAuth2 PKCE (Proof Key for Code Exchange) flow. Modifies the core auth handler, adds new PKCE verifier generation, and updates the token exchange endpoint. Touches security-sensitive code paths including token validation and session management.
+          Refactors the authentication middleware to add support for OAuth2 PKCE (Proof Key for Code Exchange) flow.
+          Modifies the core auth handler, adds new PKCE verifier generation, and updates the token exchange endpoint.
+          Touches security-sensitive code paths including token validation and session management.
         </div>
 
         <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
@@ -543,7 +785,8 @@
           <div class="terminal-title">openclaw — triage issue #2847</div>
         </div>
         <div class="terminal-body">
-          <span class="prompt">❯</span> <span class="cmd">openclaw triage issue #2847 --repo openclaw/openclaw</span><br><br>
+          <span class="prompt">❯</span> <span class="cmd">openclaw triage issue #2847 --repo
+            openclaw/openclaw</span><br><br>
           <span class="dim">Fetching issue metadata...</span><br>
           <span class="dim">Checking completeness...</span><br>
           <span class="dim">Searching for duplicates... found 2 candidates</span><br>
@@ -559,7 +802,8 @@
 
         <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px;">
           <span class="tag bug">🐛 bug</span>
-          <span class="tag" style="background:rgba(239,68,68,0.15);color:#f87171;border:1px solid rgba(239,68,68,0.3);">P1 — High</span>
+          <span class="tag"
+            style="background:rgba(239,68,68,0.15);color:#f87171;border:1px solid rgba(239,68,68,0.3);">P1 — High</span>
         </div>
 
         <div class="triage-grid">
@@ -590,18 +834,24 @@
         </div>
 
         <div class="section-label">Potential Duplicates</div>
-        <div style="background:rgba(0,0,0,0.15);border-radius:8px;padding:12px 14px;margin-bottom:14px;font-size:0.84rem;color:var(--text-secondary);">
-          <div style="margin-bottom:6px;">⚠️ <strong>#2103</strong> — "Parser fails on UTF-8 BOM in YAML config" <span class="tag low" style="margin-left:6px;">closed</span></div>
-          <div>⚠️ <strong>#1892</strong> — "Unicode handling broken in config loader" <span class="tag low" style="margin-left:6px;">open</span></div>
+        <div
+          style="background:rgba(0,0,0,0.15);border-radius:8px;padding:12px 14px;margin-bottom:14px;font-size:0.84rem;color:var(--text-secondary);">
+          <div style="margin-bottom:6px;">⚠️ <strong>#2103</strong> — "Parser fails on UTF-8 BOM in YAML config" <span
+              class="tag low" style="margin-left:6px;">closed</span></div>
+          <div>⚠️ <strong>#1892</strong> — "Unicode handling broken in config loader" <span class="tag low"
+              style="margin-left:6px;">open</span></div>
         </div>
 
         <div class="triage-summary">
-          OpenClaw crashes immediately on startup if the user's config file was saved with a Unicode BOM (Byte Order Mark). This commonly happens when editing config files with Windows Notepad. The parser expects clean UTF-8 and chokes on the 3-byte BOM prefix. 14 thumbs-up suggests multiple users affected.
+          OpenClaw crashes immediately on startup if the user's config file was saved with a Unicode BOM (Byte Order
+          Mark). This commonly happens when editing config files with Windows Notepad. The parser expects clean UTF-8
+          and chokes on the 3-byte BOM prefix. 14 thumbs-up suggests multiple users affected.
         </div>
 
         <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
           <div class="action-badge review">⚡ Assign & Fix</div>
-          <span style="font-size:0.8rem;color:var(--text-muted);">May be duplicate of #1892 — verify before assigning</span>
+          <span style="font-size:0.8rem;color:var(--text-muted);">May be duplicate of #1892 — verify before
+            assigning</span>
         </div>
       </div>
     </div>
@@ -616,7 +866,8 @@
           <div class="terminal-title">openclaw — batch triage (last 7 days)</div>
         </div>
         <div class="terminal-body">
-          <span class="prompt">❯</span> <span class="cmd">openclaw batch triage prs --since 7d --repo openclaw/openclaw</span><br><br>
+          <span class="prompt">❯</span> <span class="cmd">openclaw batch triage prs --since 7d --repo
+            openclaw/openclaw</span><br><br>
           <span class="dim">Fetching open PRs updated in last 7 days...</span><br>
           <span class="dim">Found 34 PRs. Analyzing...</span><br>
           <span class="dim">████████████████████████████████ 34/34</span><br><br>
@@ -625,12 +876,30 @@
       </div>
 
       <div class="stats-bar">
-        <div class="stat"><div class="number">34</div><div class="label">Triaged</div></div>
-        <div class="stat"><div class="number" style="-webkit-text-fill-color:var(--accent-green)">8</div><div class="label">Ready to Merge</div></div>
-        <div class="stat"><div class="number" style="-webkit-text-fill-color:var(--accent-yellow)">12</div><div class="label">Needs Review</div></div>
-        <div class="stat"><div class="number" style="-webkit-text-fill-color:var(--accent-orange)">6</div><div class="label">Stale</div></div>
-        <div class="stat"><div class="number" style="-webkit-text-fill-color:var(--accent-red)">3</div><div class="label">CI Failing</div></div>
-        <div class="stat"><div class="number" style="-webkit-text-fill-color:var(--accent-purple)">2</div><div class="label">Security</div></div>
+        <div class="stat">
+          <div class="number">34</div>
+          <div class="label">Triaged</div>
+        </div>
+        <div class="stat">
+          <div class="number" style="-webkit-text-fill-color:var(--accent-green)">8</div>
+          <div class="label">Ready to Merge</div>
+        </div>
+        <div class="stat">
+          <div class="number" style="-webkit-text-fill-color:var(--accent-yellow)">12</div>
+          <div class="label">Needs Review</div>
+        </div>
+        <div class="stat">
+          <div class="number" style="-webkit-text-fill-color:var(--accent-orange)">6</div>
+          <div class="label">Stale</div>
+        </div>
+        <div class="stat">
+          <div class="number" style="-webkit-text-fill-color:var(--accent-red)">3</div>
+          <div class="label">CI Failing</div>
+        </div>
+        <div class="stat">
+          <div class="number" style="-webkit-text-fill-color:var(--accent-purple)">2</div>
+          <div class="label">Security</div>
+        </div>
       </div>
 
       <div class="section-label">Batch Results — Sorted by Priority</div>
@@ -736,7 +1005,8 @@
           <div class="terminal-title">openclaw — PR dashboard</div>
         </div>
         <div class="terminal-body">
-          <span class="prompt">❯</span> <span class="cmd">openclaw triage dashboard --repo openclaw/openclaw</span><br><br>
+          <span class="prompt">❯</span> <span class="cmd">openclaw triage dashboard --repo
+            openclaw/openclaw</span><br><br>
           <span class="dim">Fetching top 100 open PRs...</span><br>
           <span class="dim">Classifying into action buckets...</span><br><br>
           <span class="success">✓ Dashboard ready — 100 PRs categorized</span>
@@ -744,10 +1014,22 @@
       </div>
 
       <div class="stats-bar">
-        <div class="stat"><div class="number">3,612</div><div class="label">Total Open PRs</div></div>
-        <div class="stat"><div class="number" style="-webkit-text-fill-color:var(--accent-green)">~340</div><div class="label">Ready to Merge</div></div>
-        <div class="stat"><div class="number" style="-webkit-text-fill-color:var(--accent-red)">~1,200</div><div class="label">Stale (>30d)</div></div>
-        <div class="stat"><div class="number" style="-webkit-text-fill-color:var(--accent-orange)">~780</div><div class="label">Abandoned (>90d)</div></div>
+        <div class="stat">
+          <div class="number">3,612</div>
+          <div class="label">Total Open PRs</div>
+        </div>
+        <div class="stat">
+          <div class="number" style="-webkit-text-fill-color:var(--accent-green)">~340</div>
+          <div class="label">Ready to Merge</div>
+        </div>
+        <div class="stat">
+          <div class="number" style="-webkit-text-fill-color:var(--accent-red)">~1,200</div>
+          <div class="label">Stale (>30d)</div>
+        </div>
+        <div class="stat">
+          <div class="number" style="-webkit-text-fill-color:var(--accent-orange)">~780</div>
+          <div class="label">Abandoned (>90d)</div>
+        </div>
       </div>
 
       <div class="dashboard-grid">
@@ -756,10 +1038,14 @@
           <div class="bucket-header" style="color:var(--accent-red)">
             🔴 Immediate Action <span class="count">4</span>
           </div>
-          <div class="bucket-item"><span class="num">#3418</span><span class="title">Fix memory leak in skill loader hot-reload</span><span class="tag bug" style="font-size:0.65rem">bug</span></div>
-          <div class="bucket-item"><span class="num">#3402</span><span class="title">Patch XSS vulnerability in message renderer</span><span class="tag critical" style="font-size:0.65rem">security</span></div>
-          <div class="bucket-item"><span class="num">#3395</span><span class="title">Fix token refresh loop causing rate limit</span><span class="tag bug" style="font-size:0.65rem">bug</span></div>
-          <div class="bucket-item"><span class="num">#3388</span><span class="title">Prevent shell injection in skill exec</span><span class="tag critical" style="font-size:0.65rem">security</span></div>
+          <div class="bucket-item"><span class="num">#3418</span><span class="title">Fix memory leak in skill loader
+              hot-reload</span><span class="tag bug" style="font-size:0.65rem">bug</span></div>
+          <div class="bucket-item"><span class="num">#3402</span><span class="title">Patch XSS vulnerability in message
+              renderer</span><span class="tag critical" style="font-size:0.65rem">security</span></div>
+          <div class="bucket-item"><span class="num">#3395</span><span class="title">Fix token refresh loop causing rate
+              limit</span><span class="tag bug" style="font-size:0.65rem">bug</span></div>
+          <div class="bucket-item"><span class="num">#3388</span><span class="title">Prevent shell injection in skill
+              exec</span><span class="tag critical" style="font-size:0.65rem">security</span></div>
         </div>
 
         <!-- Needs Review -->
@@ -767,10 +1053,14 @@
           <div class="bucket-header" style="color:var(--accent-yellow)">
             🟡 Needs Review <span class="count">12</span>
           </div>
-          <div class="bucket-item"><span class="num">#3421</span><span class="title">Refactor auth middleware for OAuth2 PKCE</span><span class="tag feature" style="font-size:0.65rem">feature</span></div>
-          <div class="bucket-item"><span class="num">#3419</span><span class="title">Add rate limiter to Telegram bridge</span><span class="tag feature" style="font-size:0.65rem">feature</span></div>
-          <div class="bucket-item"><span class="num">#3411</span><span class="title">Improve error messages for skill loading</span><span class="tag refactor" style="font-size:0.65rem">refactor</span></div>
-          <div class="bucket-item"><span class="num">+9</span><span class="title" style="color:var(--text-muted)">more...</span></div>
+          <div class="bucket-item"><span class="num">#3421</span><span class="title">Refactor auth middleware for OAuth2
+              PKCE</span><span class="tag feature" style="font-size:0.65rem">feature</span></div>
+          <div class="bucket-item"><span class="num">#3419</span><span class="title">Add rate limiter to Telegram
+              bridge</span><span class="tag feature" style="font-size:0.65rem">feature</span></div>
+          <div class="bucket-item"><span class="num">#3411</span><span class="title">Improve error messages for skill
+              loading</span><span class="tag refactor" style="font-size:0.65rem">refactor</span></div>
+          <div class="bucket-item"><span class="num">+9</span><span class="title"
+              style="color:var(--text-muted)">more...</span></div>
         </div>
 
         <!-- Ready to Merge -->
@@ -778,10 +1068,14 @@
           <div class="bucket-header" style="color:var(--accent-green)">
             🟢 Ready to Merge <span class="count">8</span>
           </div>
-          <div class="bucket-item"><span class="num">#3415</span><span class="title">Add Japanese locale support for TUI</span><span class="tag feature" style="font-size:0.65rem">feature</span></div>
-          <div class="bucket-item"><span class="num">#3390</span><span class="title">Bump openssl from 3.1.4 to 3.2.1</span><span class="tag deps" style="font-size:0.65rem">deps</span></div>
-          <div class="bucket-item"><span class="num">#3344</span><span class="title">Update contributing guidelines</span><span class="tag docs" style="font-size:0.65rem">docs</span></div>
-          <div class="bucket-item"><span class="num">+5</span><span class="title" style="color:var(--text-muted)">more...</span></div>
+          <div class="bucket-item"><span class="num">#3415</span><span class="title">Add Japanese locale support for
+              TUI</span><span class="tag feature" style="font-size:0.65rem">feature</span></div>
+          <div class="bucket-item"><span class="num">#3390</span><span class="title">Bump openssl from 3.1.4 to
+              3.2.1</span><span class="tag deps" style="font-size:0.65rem">deps</span></div>
+          <div class="bucket-item"><span class="num">#3344</span><span class="title">Update contributing
+              guidelines</span><span class="tag docs" style="font-size:0.65rem">docs</span></div>
+          <div class="bucket-item"><span class="num">+5</span><span class="title"
+              style="color:var(--text-muted)">more...</span></div>
         </div>
 
         <!-- Stale -->
@@ -789,10 +1083,14 @@
           <div class="bucket-header" style="color:var(--text-muted)">
             ⚪ Stale / Abandoned <span class="count">18</span>
           </div>
-          <div class="bucket-item"><span class="num">#3088</span><span class="title">Experimental: voice command integration</span><span style="font-size:0.72rem;color:var(--text-muted)">92d</span></div>
-          <div class="bucket-item"><span class="num">#2955</span><span class="title">GraphQL API for skill registry</span><span style="font-size:0.72rem;color:var(--text-muted)">128d</span></div>
-          <div class="bucket-item"><span class="num">#2801</span><span class="title">Rewrite config parser in Rust</span><span style="font-size:0.72rem;color:var(--text-muted)">201d</span></div>
-          <div class="bucket-item"><span class="num">+15</span><span class="title" style="color:var(--text-muted)">more...</span></div>
+          <div class="bucket-item"><span class="num">#3088</span><span class="title">Experimental: voice command
+              integration</span><span style="font-size:0.72rem;color:var(--text-muted)">92d</span></div>
+          <div class="bucket-item"><span class="num">#2955</span><span class="title">GraphQL API for skill
+              registry</span><span style="font-size:0.72rem;color:var(--text-muted)">128d</span></div>
+          <div class="bucket-item"><span class="num">#2801</span><span class="title">Rewrite config parser in
+              Rust</span><span style="font-size:0.72rem;color:var(--text-muted)">201d</span></div>
+          <div class="bucket-item"><span class="num">+15</span><span class="title"
+              style="color:var(--text-muted)">more...</span></div>
         </div>
 
         <!-- Dependencies -->
@@ -801,11 +1099,162 @@
             🔵 Dependency Updates <span class="count">24</span>
           </div>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));">
-            <div class="bucket-item"><span class="num">#3390</span><span class="title">Bump openssl 3.1.4 → 3.2.1</span><span style="color:var(--accent-green);font-size:0.75rem">✅ CI pass</span></div>
-            <div class="bucket-item"><span class="num">#3385</span><span class="title">Bump tokio 1.35 → 1.36</span><span style="color:var(--accent-green);font-size:0.75rem">✅ CI pass</span></div>
-            <div class="bucket-item"><span class="num">#3371</span><span class="title">Bump serde 1.0.195 → 1.0.197</span><span style="color:var(--accent-green);font-size:0.75rem">✅ CI pass</span></div>
-            <div class="bucket-item"><span class="num">#3350</span><span class="title">Bump clap 4.4 → 4.5</span><span style="color:var(--accent-red);font-size:0.75rem">❌ CI fail</span></div>
+            <div class="bucket-item"><span class="num">#3390</span><span class="title">Bump openssl 3.1.4 →
+                3.2.1</span><span style="color:var(--accent-green);font-size:0.75rem">✅ CI pass</span></div>
+            <div class="bucket-item"><span class="num">#3385</span><span class="title">Bump tokio 1.35 →
+                1.36</span><span style="color:var(--accent-green);font-size:0.75rem">✅ CI pass</span></div>
+            <div class="bucket-item"><span class="num">#3371</span><span class="title">Bump serde 1.0.195 →
+                1.0.197</span><span style="color:var(--accent-green);font-size:0.75rem">✅ CI pass</span></div>
+            <div class="bucket-item"><span class="num">#3350</span><span class="title">Bump clap 4.4 → 4.5</span><span
+                style="color:var(--accent-red);font-size:0.75rem">❌ CI fail</span></div>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ Panel 5: Duplicate Detection ═══ -->
+    <div class="demo-panel" id="panel-duplicates">
+      <div class="terminal">
+        <div class="terminal-bar">
+          <div class="terminal-dot red"></div>
+          <div class="terminal-dot yellow"></div>
+          <div class="terminal-dot green"></div>
+          <div class="terminal-title">openclaw — detect duplicates PR #14358</div>
+        </div>
+        <div class="terminal-body">
+          <span class="prompt">❯</span> <span class="cmd">openclaw detect-duplicates #14358 --repo
+            openclaw/openclaw</span><br><br>
+          <span class="dim">Fetching PR #14358 metadata...</span><br>
+          <span class="dim">Files: 2 files changed (session.ts, config.ts)</span><br>
+          <span class="dim">Scanning 100 open PRs for file overlap...</span><br>
+          <span class="dim">████████████████████████████████ 100/100</span><br><br>
+          <span class="error">⚠ Found 2 overlapping PRs — 1 suspicious</span><br><br>
+          <span class="success">✓ Duplicate scan complete</span>
+        </div>
+      </div>
+
+      <div class="section-label">Target PR</div>
+      <div class="triage-card">
+        <h3><span class="pr-number">#14358</span> fix: preserve session overrides across /new or /reset</h3>
+        <div class="url">github.com/openclaw/openclaw/pull/14358 · opened Feb 12 by @WyattSanders</div>
+        <div class="triage-grid" style="grid-template-columns: repeat(3, 1fr);">
+          <div class="triage-field">
+            <div class="label">Files Changed</div>
+            <div class="value">2 files</div>
+          </div>
+          <div class="triage-field">
+            <div class="label">Lines</div>
+            <div class="value">+47 / -0</div>
+          </div>
+          <div class="triage-field">
+            <div class="label">Author</div>
+            <div class="value">@WyattSanders</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-label">Overlap Analysis</div>
+
+      <!-- Suspicious match -->
+      <div class="triage-card" style="border-color: rgba(239,68,68,0.4);">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+          <span style="font-size:1.3rem;">🔴</span>
+          <div>
+            <h3 style="margin:0;"><span class="pr-number">#14901</span> fix: keep session verbose/model flags after
+              reset</h3>
+            <div class="url" style="margin:0;">opened Feb 14 by @ghost-contributor · 2 days AFTER #14358</div>
+          </div>
+        </div>
+
+        <div class="triage-grid" style="grid-template-columns: repeat(4, 1fr);">
+          <div class="triage-field">
+            <div class="label">File Overlap</div>
+            <div class="value" style="color:var(--accent-red)">2/2 (100%)</div>
+          </div>
+          <div class="triage-field">
+            <div class="label">Submitted</div>
+            <div class="value" style="color:var(--accent-red)">AFTER original</div>
+          </div>
+          <div class="triage-field">
+            <div class="label">Same Author</div>
+            <div class="value" style="color:var(--accent-red)">NO</div>
+          </div>
+          <div class="triage-field">
+            <div class="label">Risk</div>
+            <div class="value" style="color:var(--accent-red)">🔴 HIGH</div>
+          </div>
+        </div>
+
+        <div
+          style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:8px;padding:12px 14px;margin-top:12px;font-size:0.84rem;">
+          <div style="color:var(--accent-red);font-weight:600;margin-bottom:6px;">⚠️ Suspicious Indicators:</div>
+          <div style="color:var(--text-secondary);margin-bottom:4px;">• 100% file overlap with different author</div>
+          <div style="color:var(--text-secondary);margin-bottom:4px;">• Submitted 2 days after the original PR</div>
+          <div style="color:var(--text-secondary);margin-bottom:4px;">• Nearly identical title (after normalizing
+            prefixes)</div>
+          <div style="color:var(--text-secondary);">• Similar branch name pattern</div>
+        </div>
+      </div>
+
+      <!-- Benign match -->
+      <div class="triage-card" style="border-color: rgba(245,158,11,0.3);">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+          <span style="font-size:1.3rem;">🟡</span>
+          <div>
+            <h3 style="margin:0;"><span class="pr-number">#14200</span> refactor: session state management improvements
+            </h3>
+            <div class="url" style="margin:0;">opened Feb 11 by @core-team-dev · 1 day BEFORE #14358</div>
+          </div>
+        </div>
+
+        <div class="triage-grid" style="grid-template-columns: repeat(4, 1fr);">
+          <div class="triage-field">
+            <div class="label">File Overlap</div>
+            <div class="value" style="color:var(--accent-yellow)">1/2 (50%)</div>
+          </div>
+          <div class="triage-field">
+            <div class="label">Submitted</div>
+            <div class="value" style="color:var(--accent-green)">BEFORE original</div>
+          </div>
+          <div class="triage-field">
+            <div class="label">Same Author</div>
+            <div class="value" style="color:var(--accent-red)">NO</div>
+          </div>
+          <div class="triage-field">
+            <div class="label">Risk</div>
+            <div class="value" style="color:var(--accent-yellow)">🟡 MEDIUM</div>
+          </div>
+        </div>
+
+        <div class="triage-summary" style="border-left-color:var(--accent-yellow);">
+          Likely independent work — different scope (refactoring vs. bug fix), submitted before the target, and only 50%
+          file overlap on a commonly-edited file.
+        </div>
+      </div>
+
+      <div class="section-label">Summary</div>
+      <div class="triage-card">
+        <div class="triage-grid" style="grid-template-columns: repeat(4, 1fr);">
+          <div class="triage-field">
+            <div class="label">PRs Scanned</div>
+            <div class="value">100</div>
+          </div>
+          <div class="triage-field">
+            <div class="label">Overlapping</div>
+            <div class="value">2</div>
+          </div>
+          <div class="triage-field">
+            <div class="label">High Risk</div>
+            <div class="value" style="color:var(--accent-red)">1</div>
+          </div>
+          <div class="triage-field">
+            <div class="label">Medium Risk</div>
+            <div class="value" style="color:var(--accent-yellow)">1</div>
+          </div>
+        </div>
+        <div style="margin-top:14px;">
+          <div class="action-badge close" style="font-size:0.78rem;">⚠️ Recommendation: Review PR #14901 for plagiarism
+            — compare diffs with `gh pr diff`</div>
         </div>
       </div>
     </div>
@@ -825,4 +1274,5 @@
     }
   </script>
 </body>
+
 </html>

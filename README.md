@@ -26,6 +26,7 @@ A complete, ready-to-use OpenClaw skill for triaging PRs and issues at scale. It
 | **Single Issue Triage** | Classifies priority (P0–P3), detects incomplete issues, finds potential duplicates, checks for linked PRs |
 | **Batch Mode** | Processes up to 200 PRs/issues at once with filtering by state, recency, and labels — designed for the 3.6k+ backlog |
 | **PR Dashboard** | Generates an action-prioritized overview: 🔴 Immediate, 🟡 Needs Review, 🟢 Ready to Merge, ⚪ Stale, 🔵 Deps |
+| **🔍 Duplicate & Plagiarism Detection** | Compares PRs by file overlap, submission timing, authorship, title similarity, and branch names to flag copied or duplicate work |
 
 ### Architecture
 
@@ -35,7 +36,8 @@ openclaw-triage-skill/
 ├── scripts/
 │   ├── triage-pr.sh              # Fetches PR metadata via gh CLI
 │   ├── triage-issue.sh           # Fetches issue metadata + duplicate detection
-│   └── batch-triage.sh           # Bulk fetching with filters
+│   ├── batch-triage.sh           # Bulk fetching with filters
+│   └── detect-duplicates.sh      # 🔍 Duplicate/plagiarism detection across PRs
 └── templates/
     └── triage-report.md          # Structured output template
 ```
@@ -69,6 +71,7 @@ could allow bypass of email verification under specific conditions.
 Here's my concrete plan for tackling the backlog if I join the team:
 
 ### Phase 1: Quick Wins (Week 1)
+- **🔍 Flag duplicate/stolen PRs**: Run duplicate detection across the open PR queue to identify copied work — a known pain point for maintainers dealing with credit disputes and review waste
 - **Close abandoned PRs**: Batch-filter for PRs with 90+ days of inactivity, no reviews, and failing CI → generate a "stale PR" report for maintainer approval before closing
 - **Merge dependency bumps**: Batch-identify Dependabot/Renovate PRs with passing CI → flag for auto-merge
 - **Label the unlabeled**: Run triage on all unlabeled PRs to auto-suggest labels

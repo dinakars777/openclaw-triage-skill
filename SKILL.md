@@ -125,7 +125,47 @@ Group results into action buckets:
 
 ---
 
-## Classification Rules
+### 5. Duplicate & Plagiarism Detection
+
+When the user asks to check a PR for duplicates or plagiarism (e.g., "check PR #1234 for duplicates", "is this PR stolen?"), run:
+
+```bash
+bash scripts/detect-duplicates.sh <PR_NUMBER> [--repo owner/name] [--threshold 50]
+```
+
+This command compares the target PR against all open PRs and flags:
+
+| Signal | What It Detects |
+|--------|----------------|
+| **File Overlap** | Other PRs touching the same files (configurable threshold, default 50%) |
+| **Timing Analysis** | Which PR was submitted first — the original vs. the copy |
+| **Authorship** | Different authors with high file overlap = suspicious |
+| **Title Similarity** | Near-identical titles after removing conventional prefixes (fix:, feat:, etc.) |
+| **Branch Names** | Similar branch names across different authors |
+
+#### Risk levels
+
+- **🔴 High**: Different author, 75%+ file overlap, submitted after the original — likely plagiarism
+- **🟡 Medium**: Different author, 50-74% file overlap — could be independent work on the same area
+- **🟢 Low**: Same author (self-duplicate) or minimal overlap
+
+#### Output
+
+```
+┌──────────────────────────────────────────────
+│ 🔍 MATCH: PR #5678 — Fix OAuth token refresh
+│ Author: @copier | Created: 2026-02-15
+│
+│ 📁 File Overlap: 8/9 files (89%)
+│ ⏱️  #5678 was submitted AFTER #1234
+│ 🔴 SUSPICIOUS: Different author (@copier) with 89% file overlap
+│
+│ Risk Level: high
+│ Same author: NO — different authors
+└──────────────────────────────────────────────
+```
+
+
 
 ### Type Detection
 - **bug-fix**: Title/body contains "fix", "bug", "crash", "error", "regression"; touches test files alongside source
