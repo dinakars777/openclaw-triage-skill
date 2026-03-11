@@ -1,14 +1,10 @@
-# 🤖 OpenClaw PR & Issue Triage — Contribution Proposal
+# 🤖 PR & Issue Triage
 
-**From**: Dinakar
-**Date**: February 17, 2026
-**Re**: Joining the triage effort for OpenClaw's 3,600+ PRs
 
 ---
 
-## Hi Peter 👋
+## Hi There 👋
 
-I saw your mention about working on a way for clawdbots to triage issues and PRs to help narrow down the 3.6k+ PR backlog. I'd love to help — I've already been contributing to OpenClaw (PR [#6590](https://github.com/openclaw/openclaw/pull/6590) — security hardening of the control UI defaults) and I'm very familiar with the codebase and the skill system.
 
 I've put together a **working triage skill** that I think could be a strong starting point or complement to whatever you're building. Here's what it does and how I'd like to contribute.
 
@@ -94,18 +90,7 @@ Here's my concrete plan for tackling the backlog if I join the team:
 
 ---
 
-## What I Bring
-
-- **Existing contributor** — Already familiar with the codebase from PR #6590 (security hardening)
-- **Skill development experience** — The triage skill follows the OpenClaw SKILL.md format and is ready for ClawHub
-- **Practical focus** — I've designed this specifically for OpenClaw's scale (3.6k PRs), not as a generic tool
-- **Availability** — I can commit regular time to both active triage work and improving the triage tooling
-
----
-
 ## Next Steps
-
-I'd love to discuss:
 
 1. **Aligning with your existing triage work** — Happy to adapt the skill to fit whatever architecture you're building
 2. **Access and permissions** — What level of repo access does the triage team need?
